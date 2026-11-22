@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#161618">
+  <meta name="color-scheme" content="dark">
+  <title>Soham Pingale: quantitative research and machine learning</title>
+  <meta name="description" content="A portfolio laid out on a single drag-to-pan canvas: experience, projects, research and quantitative models.">
+
+  <!-- Fonts: EB Garamond for titles, Geist for body and technical detail -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!--
+    The viewport is a fixed window onto an unbounded 2D world.
+    Everything inside #world is moved with a single translate3d (the "camera").
+    Nodes (cards) are created by app.js from the data in content.js.
+  -->
+  <main
+    id="viewport"
+    class="viewport"
+    role="region"
+    aria-roledescription="spatial map"
+    aria-label="Portfolio map. Drag to pan. Press Tab to move between sections, arrow keys to jump to the nearest neighbour, Enter to open a section, Escape to close it, and Home to return to the centre.">
+
+    <!-- Layer 0: parallax dot field (moves at half speed for depth) -->
+    <div class="grid" id="grid" aria-hidden="true"></div>
+
+    <!-- Layer 1: connecting lines, drawn progressively on a canvas -->
+    <canvas class="links" id="links" aria-hidden="true"></canvas>
+
+    <!-- Layer 2: the world. Hub at (0,0); nodes are appended here by app.js -->
+    <div class="world" id="world">
+
+      <div class="hub" id="hub">
+        <div class="hub__body">
+          <canvas class="hub__octa" id="octa" aria-hidden="true"></canvas>
+          <div class="hub__text">
+            <h1 class="hub__name">Soham Pingale</h1>
+            <p class="hub__role">
+              Finance × Machine Learning × Quantitative Research
+            </p>
+            <p class="hub__bio">
+              Computer Engineering graduate working at the intersection of financial markets,
+              quantitative modelling and machine learning. Currently exploring Supply Chain
+              Finance at Standard Chartered.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Layers 3 and 4: edge vignette and paper grain (static, pointer-transparent) -->
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Minimap: warm dot is the camera. Click or drag to travel. -->
+    <aside class="minimap" id="minimap" aria-label="Minimap">
+      <canvas id="minimap-canvas" aria-hidden="true"></canvas>
+      <button class="minimap__home" id="home" type="button" aria-label="Return to the centre of the map">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 2v5M12 17v5M2 12h5M17 12h5"/>
+        </svg>
+      </button>
+    </aside>
+
+    <p class="hint" id="hint">Drag to explore. Tab or the arrow keys move between sections.</p>
+
+    <!-- Screen-reader announcements for open / close -->
+    <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+  </main>
+
+  <noscript>
+    <p class="noscript">This portfolio is an interactive map and needs JavaScript. Please enable it to explore.</p>
+  </noscript>
+
+  <!-- Content first, then the engine. Plain scripts (no modules) so it also works from file:// -->
+  <script src="content.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
